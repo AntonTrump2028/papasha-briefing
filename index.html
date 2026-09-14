@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Папаша — брифинг</title>
+  <meta name="description" content="Живой брифинг серий American Dad! по официальному эфиру TVMaze." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07080d; --card: rgba(18, 22, 34, 0.72); --line: rgba(255, 214, 120, 0.16);
+      --gold: #f3c15a; --gold2: #ffe7a3; --red: #ff5d4a; --mint: #7dffc3;
+      --text: #f4efe4; --muted: #9aa3b5; --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: Manrope, system-ui, sans-serif; color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(243, 193, 90, 0.16), transparent 50%),
+        radial-gradient(900px 500px at 110% 0%, rgba(255, 93, 74, 0.12), transparent 45%),
+        linear-gradient(180deg, #0b0d14 0%, var(--bg) 40%, #0a0c12 100%);
+    }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 64px; }
+    header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+    .brand { display: flex; gap: 14px; align-items: center; }
+    .seal { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: linear-gradient(160deg, #2a2314, #15110c); border: 1px solid var(--line); font-size: 26px; }
+    .brand h1 { font-size: clamp(22px, 3vw, 32px); font-weight: 800; line-height: 1.05; }
+    .brand p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .chip { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold2); border: 1px solid var(--line); padding: 8px 12px; border-radius: 999px; background: rgba(243,193,90,.08); }
+    .hero { display: grid; grid-template-columns: 280px 1fr; gap: 22px; margin-bottom: 22px; }
+    @media (max-width: 800px) { header { flex-direction: column; } .hero, .grid { grid-template-columns: 1fr; } }
+    .poster { border-radius: 22px; overflow: hidden; min-height: 360px; background: #161821; border: 1px solid var(--line); position: relative; }
+    .poster img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 360px; }
+    .poster .glow { position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, rgba(7,8,13,.92)); }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; backdrop-filter: blur(16px); box-shadow: var(--shadow); }
+    .kicker { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--gold); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 8px; }
+    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 18px; }
+    .stat { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 12px; padding: 10px 12px; min-width: 110px; }
+    .stat b { display: block; font-size: 16px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+    .summary { color: #c9d0dc; line-height: 1.55; font-size: 15px; max-width: 62ch; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    button, .btn { appearance: none; border: 0; cursor: pointer; text-decoration: none; font: 600 14px Manrope, sans-serif; color: #16120a; background: linear-gradient(180deg, var(--gold2), var(--gold)); padding: 11px 16px; border-radius: 12px; }
+    .btn.ghost { color: var(--text); background: transparent; border: 1px solid var(--line); }
+    .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
+    h2 { font-size: 18px; margin-bottom: 14px; }
+    .ep { display: grid; grid-template-columns: 72px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.06); }
+    .ep:first-of-type { border-top: 0; }
+    .code { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--gold2); background: rgba(243,193,90,.1); border-radius: 8px; padding: 6px 8px; text-align: center; }
+    .ep h3 { font-size: 15px; }
+    .ep p { color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .tag { font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid transparent; }
+    .tag.new { color: #062616; background: var(--mint); }
+    .tag.next { color: var(--gold2); border-color: var(--line); }
+    .empty { color: var(--muted); font-size: 14px; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    footer a { color: var(--gold2); }
+    .err { color: var(--red); padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="seal">★</div>
+        <div>
+          <h1>Папаша — брифинг</h1>
+          <p>Официальный эфир American Dad! · живые данные TVMaze</p>
+        </div>
+      </div>
+      <div class="chip" id="stamp">ЛЭНГЛИ · ЗАГРУЗКА</div>
+    </header>
+    <section class="hero" id="hero">
+      <div class="poster"><div class="glow"></div></div>
+      <div class="panel"><div class="kicker">Запрашиваю Лэнгли…</div><p class="summary">Тяну расписание с официального API.</p></div>
+    </section>
+    <section class="grid">
+      <div class="panel" id="fresh"><h2>Свежие серии</h2><p class="empty">Загрузка…</p></div>
+      <div class="panel" id="next"><h2>Что дальше</h2><p class="empty">Загрузка…</p></div>
+    </section>
+    <footer>
+      <span>Источник: <a href="https://www.tvmaze.com/shows/215/american-dad" target="_blank" rel="noreferrer">TVMaze</a> · CC BY-SA</span>
+      <span>Пиратские каталоги не используются</span>
+    </footer>
+  </div>
+  <script>
+    const SHOW = 215;
+    const $ = (id) => document.getElementById(id);
+    const code = (ep) => `S${String(ep.season ?? "?").padStart(2,"0")}E${String(ep.number ?? "?").padStart(2,"0")}`;
+    const ruDate = (iso) => iso ? new Intl.DateTimeFormat("ru-RU",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(iso+"T12:00:00Z")) : "дата не объявлена";
+    const strip = (html) => (html || "").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+    const epRow = (ep, tag) => `<article class="ep"><div class="code">${code(ep)}</div><div><h3>${ep.name || "Без названия"}</h3><p>${ruDate(ep.airdate)}${ep.airtime ? " · " + ep.airtime : ""}</p></div>${tag || ""}</article>`;
+    async function load(force=false) {
+      $("stamp").textContent = "ЛЭНГЛИ · ОБНОВЛЕНИЕ";
+      const [show, episodes] = await Promise.all([
+        fetch("https://api.tvmaze.com/shows/" + SHOW + (force ? "?_="+Date.now() : "")).then(r => r.json()),
+        fetch("https://api.tvmaze.com/shows/" + SHOW + "/episodes?specials=1" + (force ? "&_="+Date.now() : "")).then(r => r.json())
+      ]);
+      const today = new Date().toISOString().slice(0,10);
+      const numbered = episodes.filter(ep => ep.number != null);
+      const aired = numbered.filter(ep => ep.airdate && ep.airdate <= today).sort((a,b)=>b.airdate.localeCompare(a.airdate));
+      const upcoming = numbered.filter(ep => !ep.airdate || ep.airdate > today).sort((a,b)=>(a.airdate||"9999").localeCompare(b.airdate||"9999"));
+      const start = new Date(); start.setUTCDate(start.getUTCDate()-14);
+      const fresh = aired.filter(ep => ep.airdate >= start.toISOString().slice(0,10));
+      const poster = show.image?.original || show.image?.medium || "";
+      const net = show.network?.name || show.webChannel?.name || "сеть не указана";
+      $("hero").innerHTML = `<div class="poster">${poster ? `<img src="${poster}" alt="${show.name}" />` : ""}<div class="glow"></div></div><div class="panel"><div class="kicker">Официальный эфир</div><h2 style="font-size:28px;margin:0 0 6px">Американский папаша</h2><p class="summary">${strip(show.summary) || "Краткое описание недоступно."}</p><div class="stats"><div class="stat"><b>${show.status==="Running"?"в эфире":show.status}</b><span>статус</span></div><div class="stat"><b>${net}</b><span>канал</span></div><div class="stat"><b>${show.rating?.average ?? "—"}</b><span>рейтинг</span></div><div class="stat"><b>${aired.length}</b><span>вышло серий</span></div></div><div class="actions"><button type="button" id="reload">Обновить брифинг</button>${show.officialSite ? `<a class="btn ghost" href="${show.officialSite}" target="_blank" rel="noreferrer">Официальный сайт</a>` : ""}<a class="btn ghost" href="${show.url}" target="_blank" rel="noreferrer">TVMaze</a></div></div>`;
+      $("reload").onclick = () => load(true);
+      $("fresh").innerHTML = `<h2>Свежие серии · 14 дней</h2>` + (fresh.length ? fresh.map(ep => epRow(ep, `<span class="tag new">новое</span>`)).join("") : `<p class="empty">За две недели новых серий нет.${aired[0] ? " Последняя: " + code(aired[0]) + " «" + aired[0].name + "»." : ""}</p>`);
+      $("next").innerHTML = `<h2>Что дальше</h2>` + (upcoming.length ? upcoming.slice(0,8).map((ep,i) => epRow(ep, i===0 ? `<span class="tag next">скоро</span>` : "")).join("") : `<p class="empty">Следующая серия пока не объявлена.</p>`);
+      $("stamp").textContent = "ЛЭНГЛИ · " + today;
+    }
+    load().catch(err => { $("hero").innerHTML = `<div class="panel err">Не удалось связаться с TVMaze: ${err.message}</div>`; });
+  </script>
+</body>
+</html>
