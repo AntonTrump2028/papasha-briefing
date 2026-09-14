@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.output/
+.vercel/
+.grok/
+.env
+.env.*
+*.log
+.DS_Store
+data/
+*.db
