@@ -1,0 +1,19 @@
+{
+  "name": "papasha-briefing",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "briefing": "node watch.mjs",
+    "dev": "vite dev --host 0.0.0.0 --port 8080",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.170.0",
+    "@tanstack/react-start": "^1.168.0",
+    "lucide-react": "^0.510.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sonner": "^2.0.7",
+    "zod": "^4.4.0"
+  }
+}
